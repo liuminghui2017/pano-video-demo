@@ -23,6 +23,15 @@
 			position: fixed;
 		}
 
+		#touch-mask {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 10;
+		}
+
 		.play-btn-x {
 			position: absolute;
 			left: 50%;
@@ -31,10 +40,35 @@
 			height: 0.64rem;
 			margin-left: -0.32rem;
 			margin-top: -0.32rem;
+			z-index: 100;
 		}
 
 		.play-btn-x:active {
 			opacity: 0.5;
+		}
+
+		.zoom-control {
+			position: absolute;
+			left: 0.1rem;
+			bottom: 0.44rem;
+			z-index: 100;
+		}
+
+		.zoom-in-btn, .zoom-out-btn {
+			width: 0.44rem;
+			height: 0.44rem;
+			background-size: 0.25rem 0.25rem;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		.zoom-in-btn {
+			background-image: url(./img/zoom_in.png);
+		}
+
+		.zoom-out-btn {
+			background-image: url(./img/zoom_out.png);
+			margin-bottom: 0.15rem;
 		}
 
 		.control-bar {
@@ -47,6 +81,7 @@
 			display: flex;
 			flex-direction: row;
 			align-items: center;
+			z-index: 100;
 		}
 
 		.control-btn {
@@ -104,15 +139,17 @@
 
 <body>
 	<div id="container"></div>
-	<!-- <video id="video" autoplay loop crossOrigin="anonymous" webkit-playsinline style="display:none"> -->
-	<video id="video" autoplay loop crossOrigin="anonymous" webkit-playsinline="" playsinline="" x5-playsinline=""
-		muted="true" style="display:none">
+	<div id="touch-mask"></div>
+	<video id="video" autoplay loop crossOrigin="anonymous" webkit-playsinline="" playsinline="" x5-playsinline="" muted="true" style="display:none">
 		<source src="./test.mp4" type="video/mp4">
-		<!-- <source src="http://www.w3school.com.cn/example/html5/mov_bbb.mp4" type="video/mp4"> -->
-		<!-- <source src="http://www.w3school.com.cn/example/html5/mov_bbb.ogg" type="video/ogg">
-		<source src="http://www.w3school.com.cn/example/html5/mov_bbb.webm" type="video/webm"> -->
 	</video>
 	<img class="play-btn-x" src="./img/play_big.png" />
+
+	<div class="zoom-control">
+		<div class="zoom-in-btn"></div>
+		<div class="zoom-out-btn"></div>
+	</div>
+
 	<div class="control-bar">
 		<div class="control-btn play"></div>
 <!-- 
@@ -122,7 +159,7 @@
 			</div>
 		</div> -->
 		<progress class="progress" value="0" max="100"></progress>
-		<p class="time">00:00/05:00</p>
+		<p class="time">00:00/00:00</p>
 	</div>
 
 	<script>

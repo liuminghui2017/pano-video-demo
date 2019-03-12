@@ -18,20 +18,26 @@ let	target = new THREE.Vector3()
 
 let	video = null
 let video_duration = 0
+let zoom_control = null
 let m_play_btn = null
 let control_btn = null
 let progress = null
 let time_state = null
+let touch_mask = null
 
 let progress_timer = null
 let is_video_ready = false
+
+let ZOOM = 1
 
 initVideoControl()
 initPanorama()
 animate()
 
 function initVideoControl() {
-	video = document.getElementById('video');
+	video = document.getElementById('video')
+	touch_mask = document.getElementById('touch-mask')
+	zoom_control = document.getElementsByClassName('zoom-control')[0]
 	m_play_btn = document.getElementsByClassName('play-btn-x')[0]
 	control_btn = document.getElementsByClassName('control-btn')[0]
 	progress = document.getElementsByClassName('progress')[0]
@@ -42,6 +48,7 @@ function initVideoControl() {
 	video.addEventListener('pause', onVideoPause)
 	video.addEventListener('ended', onVideoEnd)
 
+	zoom_control.addEventListener('click', onZoomBtnPress, true)
 	m_play_btn.addEventListener('click', onMainPlayBtnPress, true)
 	control_btn.addEventListener('click', onControlBtnPress, true)
 }
@@ -84,9 +91,9 @@ function initPanorama() {
 	renderer.autoClear = false;
 
 	// 监听触摸事件
-	document.addEventListener('touchstart', onDocumentTouchStart, false);
-	document.addEventListener('touchmove', onDocumentTouchMove, false);
-	document.addEventListener('touchend', onDocumentTouchEnd, false);
+	touch_mask.addEventListener('touchstart', onDocumentTouchStart, false);
+	touch_mask.addEventListener('touchmove', onDocumentTouchMove, false);
+	touch_mask.addEventListener('touchend', onDocumentTouchEnd, false);
 	window.addEventListener('resize', onWindowResize, false);
 
 	
@@ -175,6 +182,26 @@ function onControlBtnPress() {
 		control_btn.className = 'control-btn play'
 		video.pause()
 	}
+}
+
+// 监听缩放按钮点击事件
+function onZoomBtnPress(e) {
+	e.stopPropagation()
+	if (e.target.className == 'zoom-in-btn') {
+		ZOOM = Math.min(2, ZOOM + 0.5)
+		zoom(ZOOM)
+	}
+	if (e.target.className == 'zoom-out-btn') {
+		ZOOM = Math.max(0.5, ZOOM - 0.5)
+		zoom(ZOOM)
+	}
+}
+
+// 缩放
+function zoom(zoomSize) {
+	camera.zoom = zoomSize
+	camera.updateProjectionMatrix()
+	renderer.setSize(window.innerWidth, window.innerHeight)
 }
 
 // 格式化时间
