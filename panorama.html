@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="./lib/three.js"></script>
+	<style>
+		body,
+		div,
+		p,
+		ul,
+		li {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			overflow: hidden;
+			width: 100vw;
+			height: 100vh;
+			position: fixed;
+		}
+
+		.play-btn-x {
+			position: absolute;
+			left: 50%;
+			bottom: 50%;
+			width: 0.64rem;
+			height: 0.64rem;
+			margin-left: -0.32rem;
+			margin-top: -0.32rem;
+		}
+
+		.play-btn-x:active {
+			opacity: 0.5;
+		}
+
+		.control-bar {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			height: 0.44rem;
+			background-color: rgba(0, 0, 0, 0.3);
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+
+		.control-btn {
+			width: 0.44rem;
+			height: 0.44rem;
+			background-size: 0.25rem 0.25rem;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		.control-btn.play {
+			background-image: url(./img/play_small.png);
+		}
+
+		.control-btn.pause {
+			background-image: url(./img/pause_small.png);
+		}
+
+		/* .progress-bar-wrap {
+			display: flex;
+			height: 100%;
+			flex: 1;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.progress-bar {
+			width: 100%;
+			height: 0.03rem;
+			border-radius: 0.03rem;
+			background-color: rgba(255, 255, 255, 0.3);
+			pointer-events: none;
+		}
+
+		.progress {
+			height: 100%;
+			width: 30%;
+			background-color: #ffffff;
+			pointer-events: none;
+		} */
+
+		.progress {
+			flex: 1;
+			height: 0.03rem;
+		}
+
+		.time {
+			font-size: 0.12rem;
+			color: #ffffff;
+			margin: 0 0.1rem;
+		}
+	</style>
+	<title>全景图</title>
+</head>
+
+<body>
+	<div id="container"></div>
+	<!-- <video id="video" autoplay loop crossOrigin="anonymous" webkit-playsinline style="display:none"> -->
+	<video id="video" autoplay loop crossOrigin="anonymous" webkit-playsinline="" playsinline="" x5-playsinline=""
+		muted="true" style="display:none">
+		<source src="./test.mp4" type="video/mp4">
+		<!-- <source src="http://www.w3school.com.cn/example/html5/mov_bbb.mp4" type="video/mp4"> -->
+		<!-- <source src="http://www.w3school.com.cn/example/html5/mov_bbb.ogg" type="video/ogg">
+		<source src="http://www.w3school.com.cn/example/html5/mov_bbb.webm" type="video/webm"> -->
+	</video>
+	<img class="play-btn-x" src="./img/play_big.png" />
+	<div class="control-bar">
+		<div class="control-btn play"></div>
+<!-- 
+		<div class="progress-bar-wrap">
+			<div class="progress-bar">
+				<div class="progress"></div>
+			</div>
+		</div> -->
+		<progress class="progress" value="0" max="100"></progress>
+		<p class="time">00:00/05:00</p>
+	</div>
+
+	<script>
+		document.getElementsByTagName('html')[0].style = `font-size: ${100 * window.innerWidth / 375}px;`
+		document.body.style = `font-size: ${100 * window.innerWidth / 375}px;`
+	</script>
+	<script src="./js/panorama.js"></script>
+</body>
+
+</html>

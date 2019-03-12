@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+
+<body>
+	<video width="270" id="video" controls>
+		<source src="http://www.w3school.com.cn/example/html5/mov_bbb.mp4" type="video/mp4">
+		<source src="http://www.w3school.com.cn/example/html5/mov_bbb.ogg" type="video/ogg">
+		<source src="http://www.w3school.com.cn/example/html5/mov_bbb.webm" type="video/webm">
+	</video>
+	<canvas id="canvas" width="270" height="135" style="border:1px solid brown"></canvas>
+	<script>
+		var c = document.getElementById('canvas')
+		var v = document.getElementById('video')
+		var ctx = c.getContext('2d')
+		v.addEventListener('play', function () {
+			var i = window.setInterval(function () {
+				ctx.drawImage(v, 0, 0, 270, 135);
+				//打印当前视频的播放时间
+				console.log(v.currentTime);
+				//当视频结束的时候去掉循环
+				if (v.ended) {
+					clearInterval(i)
+				}
+			}, 20);
+		}, false);
+	</script>
+</body>
+
+</html>
