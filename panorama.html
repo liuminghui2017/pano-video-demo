@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<script src="./lib/three.js"></script>
 	<style>
@@ -163,8 +163,16 @@
 	</div>
 
 	<script>
-		document.getElementsByTagName('html')[0].style = `font-size: ${100 * window.innerWidth / 375}px;`
-		document.body.style = `font-size: ${100 * window.innerWidth / 375}px;`
+		var fontSizeAuto = function (oriWidth) {
+			return function () {
+				var viewportWidth = document.documentElement.clientWidth
+				if (viewportWidth > oriWidth) { viewportWidth = oriWidth}
+				if (viewportWidth < 240) { viewportWidth = 240 }
+				document.documentElement.style.fontSize = viewportWidth * 100 / oriWidth + 'px'
+			}
+		}
+		fontSizeAuto(375)()
+		// window.onresize = fontSizeAuto(375)
 	</script>
 	<script src="./js/panorama.js"></script>
 </body>
